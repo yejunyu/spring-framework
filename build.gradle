@@ -222,7 +222,7 @@ configure(allprojects) { project ->
 				exclude group: "org.apache.taglibs", name: "taglibs-standard-spec"
 			}
 
-			dependency "com.ibm.websphere:uow:6.0.2.17"
+//			dependency "com.ibm.websphere:uow:6.0.2.17"
 			dependency "com.jamonapi:jamon:2.82"
 			dependency "joda-time:joda-time:2.10.10"
 			dependency "org.eclipse.persistence:org.eclipse.persistence.jpa:2.7.7"
@@ -277,8 +277,11 @@ configure(allprojects) { project ->
 			cacheChangingModulesFor 0, "seconds"
 		}
 		repositories {
-			mavenCentral()
+			maven { url "https://maven.aliyun.com/nexus/content/groups/public/"}
+			maven { url "https://maven.aliyun.com/nexus/content/repositories/jcenter"}
 			maven { url "https://repo.spring.io/libs-spring-framework-build" }
+			maven { url "https://repo.spring.io/snapshot" } // Reactor
+			maven { url "https://oss.jfrog.org/artifactory/oss-snapshot-local" } // RSocket
 		}
 	}
 	configurations.all {
@@ -305,7 +308,7 @@ configure([rootProject] + javaProjects) { project ->
 			kotlinOptions {
 				jvmTarget = "1.8"
 				freeCompilerArgs = ["-Xjsr305=strict"]
-				allWarningsAsErrors = true
+				allWarningsAsErrors = false
 			}
 		}
 		compileTestKotlin {
@@ -339,9 +342,9 @@ configure([rootProject] + javaProjects) { project ->
 		// Pull in the latest JUnit 5 Launcher API to ensure proper support in IDEs.
 		testRuntime("org.junit.platform:junit-platform-launcher")
 		testRuntime("org.junit.jupiter:junit-jupiter-engine")
-		testRuntime("org.apache.logging.log4j:log4j-core")
-		testRuntime("org.apache.logging.log4j:log4j-slf4j-impl")
-		testRuntime("org.apache.logging.log4j:log4j-jul")
+//		testRuntime("org.apache.logging.log4j:log4j-core")
+//		testRuntime("org.apache.logging.log4j:log4j-slf4j-impl")
+//		testRuntime("org.apache.logging.log4j:log4j-jul")
 		// JSR-305 only used for non-required meta-annotations
 		compileOnly("com.google.code.findbugs:jsr305")
 		testCompileOnly("com.google.code.findbugs:jsr305")
